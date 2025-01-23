@@ -85,6 +85,21 @@ class App {
       }
     )}
   }
-
   
+  _loadMap(pos){
+    let {latitude , longitude} = pos.coords;
+    let coords = [`${latitude}`, `${longitude}`];
+    this.#map = L.map('map').setView(coords, 13);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(this.#map);
+
+  // handling click on maps
+    this.#map.on('click', this._showForm.bind(this));
+
+    this.#workouts.forEach(work=>{
+      this._renderWorkoutMarker(work);
+    })
+}
+
 }
