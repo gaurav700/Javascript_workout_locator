@@ -113,4 +113,13 @@ _toggleElevationField(){
     inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
 }
 
+_hideForm(){
+  inputDistance.value = inputDuration.value = inputCadence.value = inputElevation.value = '';
+
+  form.style.display = 'none';
+  form.classList.add('hidden');
+  setTimeout(()=>{
+    form.style.display = 'grid';
+  }, 1000);
+}
 }
