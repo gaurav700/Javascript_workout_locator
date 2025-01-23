@@ -122,4 +122,49 @@ _hideForm(){
     form.style.display = 'grid';
   }, 1000);
 }
+
+_newWorkout(e){
+  // helper methods
+  const validInputs = (...inputs) => inputs.every(inp=> Number.isFinite(inp));
+  const allPositive = (...inputs) => inputs.every(inp=> inp>0);
+
+  e.preventDefault();
+
+  const {lat, lng} = this.#mapEvent.latlng;
+
+  // getting the form data
+  const type = inputType.value;
+  const distance = Number(inputDistance.value);
+  const duration = Number(inputDuration.value);
+  let workout;
+
+  // chekcing the type of workout and validating the inputs
+  if(type==='running'){
+    const cadence = +inputCadence.value;
+    if(!validInputs(distance, duration, cadence) || !allPositive(distance, duration, cadence)){ alert("Input have to a postive number"); }
+    workout = new Running([lat,lng], distance, duration, cadence);
+  }
+
+  if(type==='cycling'){
+    const elevation = + inputElevation.value;
+    if(!validInputs(distance, duration, elevation) || !allPositive(distance, duration)){
+      alert("Input have to a postive number"); }
+    workout = new Cycling([lat,lng], distance, duration, elevation);
+  }
+
+  // adding the runnign or cycling workout to the array
+  this.#workouts.push(workout);
+
+  // render workout on map as marker
+  this._renderWorkoutMarker(workout);
+
+  // render workout list
+  this._renderWorkoutList(workout);
+
+  // clearing the input fields after adding it to the array
+  this._hideForm();
+
+  // setting the data to local storage
+  this._setLocalStorage();
+}
 }
