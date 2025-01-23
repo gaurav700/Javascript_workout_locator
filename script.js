@@ -74,6 +74,17 @@ class App {
     form.addEventListener('submit', this._newWorkout.bind(this));
     inputType.addEventListener('change', this._toggleElevationField);
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
-
   }
+
+  _getPosition(){
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(
+      this._loadMap.bind(this),
+      function(){
+        alert("Could not get your position")
+      }
+    )}
+  }
+
+  
 }
