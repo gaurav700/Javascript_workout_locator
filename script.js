@@ -85,7 +85,7 @@ class App {
       }
     )}
   }
-  
+
   _loadMap(pos){
     let {latitude , longitude} = pos.coords;
     let coords = [`${latitude}`, `${longitude}`];
@@ -100,6 +100,17 @@ class App {
     this.#workouts.forEach(work=>{
       this._renderWorkoutMarker(work);
     })
+}
+
+_showForm(mapE){
+  this.#mapEvent = mapE;
+  form.classList.remove('hidden');
+  inputDistance.focus();
+}
+
+_toggleElevationField(){
+    inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
+    inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
 }
 
 }
