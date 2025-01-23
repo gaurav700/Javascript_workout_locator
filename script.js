@@ -57,3 +57,23 @@ class Cycling extends Workout{
     return this.speed;
   }
 }
+
+class App {
+  #map;
+  #mapEvent;
+  #workouts=[]
+
+  constructor() {
+    // getting coordintates of the position
+    this._getPosition();
+
+    // get data form localstorage
+    this._getLocalStorage();
+
+    // event handlers
+    form.addEventListener('submit', this._newWorkout.bind(this));
+    inputType.addEventListener('change', this._toggleElevationField);
+    containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
+
+  }
+}
